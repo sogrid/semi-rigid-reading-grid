@@ -1,2 +1,2 @@
-rigid-reading-grid
-==================
+Semi-rigid reading grid
+=======================
