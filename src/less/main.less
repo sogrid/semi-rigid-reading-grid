@@ -1,0 +1,119 @@
+//import
+
+//defaults
+@grid-writing-direction: ltr;
+@grid-column-width: 19rem;
+@grid-column-gap: 2rem;
+@grid-unflow-margin: .5rem;
+@grid-margin: 4rem;
+@grid-start: left;
+@grid-guides: 0;
+
+//define
+
+@grid-unflow-width: (@grid-column-width + @grid-margin * 2);
+
+.grid-writing() when (@grid-writing-direction = rtl) {
+  @grid-start: right;
+}
+
+//debug
+.grid-guides() when (@grid-guides = 1) {
+
+  overflow: hidden;
+
+  &:before {
+    content: "";
+    display: block;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-image: linear-gradient(to right, magenta, magenta .1em, transparent .1em);
+    background-size: (@grid-column-width + @grid-column-gap);
+  }
+
+  @media only screen and (max-width: @grid-unflow-width) {
+    &:before {
+      background-size: cover;
+    }
+  }
+}
+
+.grid {
+  .grid-writing();
+  .grid-guides();
+
+  &-flow {
+    &:after {
+      display: block;
+      content: "";
+      clear: @grid-start;
+    }
+
+    &--center {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    &-col {
+      box-sizing: border-box;
+      width: @grid-column-width;
+      float: @grid-start;
+
+      &--br {
+        margin-@{grid-start}: initial;
+      }
+    }
+
+    // suggestion for view rendering
+    // if (records.length % 2 === 0) print gridname += gridname + '--n2 '
+    // if (records.length % 3 === 0) print gridname += gridname + '--n3 '
+
+
+
+    &--n2 { .grid-responsive(1); }
+    &--n2 { .grid-responsive(2); }
+    &--n3 { .grid-responsive(3); }
+    &--n2 { .grid-responsive(4); }
+    &--n3 { .grid-responsive(6); }
+    &--n2 { .grid-responsive(8); }
+    &--n3 { .grid-responsive(9); }
+
+    &--margin {
+      margin-left: @grid-margin;
+      margin-right: @grid-margin;
+    }
+
+    @media only screen and (max-width: @grid-unflow-width) {
+      &--margin, &--center {
+        margin-left: @grid-unflow-margin;
+        margin-right: @grid-unflow-margin;
+      }
+    }
+  }
+}
+
+.grid-responsive(@count) {
+
+  .grid-writing();
+
+  @inner-width: (@grid-column-width * @count + @grid-column-gap * (@count - 1));
+  @outer-width: (@inner-width + @grid-margin * 2);
+
+  @media only screen and (min-width: @outer-width) {
+    & {
+      max-width: @inner-width;
+    }
+    .grid-flow-col {
+      margin-@{grid-start}: @grid-column-gap;
+    }
+    :nth-child(@{count}n+1) ~ .grid-flow-col {
+      margin-@{grid-start}: @grid-column-gap;
+      clear: initial;
+    }
+    .grid-flow-col:nth-child(@{count}n+1) {
+      margin-@{grid-start}: initial;
+      clear: @grid-start;
+    }
+  }
+}
