@@ -1,0 +1,23 @@
+{
+  "name": "semi-rigid-reading-grid",
+  "version": "0.0.0",
+  "homepage": "https://github.com/sogrid/semi-rigid-reading-grid",
+  "authors": [
+    "tappily <tappily.b@gmail.com>"
+  ],
+  "main": "src/less/main.less",
+  "keywords": [
+    "LESS",
+    "CSS",
+    "grid"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {}
+}
