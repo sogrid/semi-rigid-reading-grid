@@ -61,15 +61,13 @@
       float: @grid-start;
 
       &--br {
-        margin-@{grid-start}: initial;
+        margin-@{grid-start}: 0;
       }
     }
 
     // suggestion for view rendering
     // if (records.length % 2 === 0) print gridname += gridname + '--n2 '
     // if (records.length % 3 === 0) print gridname += gridname + '--n3 '
-
-
 
     &--n2 { .grid-responsive(1); }
     &--n2 { .grid-responsive(2); }
@@ -109,10 +107,10 @@
     }
     :nth-child(@{count}n+1) ~ .grid-flow-col {
       margin-@{grid-start}: @grid-column-gap;
-      clear: initial;
+      clear: none;
     }
     .grid-flow-col:nth-child(@{count}n+1) {
-      margin-@{grid-start}: initial;
+      margin-@{grid-start}: 0;
       clear: @grid-start;
     }
   }
